@@ -1,0 +1,50 @@
+scalar DateType
+
+type Like {
+	liker: String!
+	id: String!
+}
+
+type Post {
+	_id: String!
+	body: String!
+	createdDate: DateType!
+	author: String!
+	likes: [Like!]
+}
+
+type User {
+	_id: String!
+	email: String!
+	username: String!
+}
+
+type PostListData {
+	postList: [Post!]!
+	count: Int!
+}
+
+input PostInputs {
+	author: String!
+	body: String!
+}
+
+type DeletedPost {
+	_id: String!
+}
+
+###### Top Level Decs
+
+type Query {
+	postList(pageNumber: Int, limit: Int): [Post!]!
+	postListCount: Int!
+	getPost(id: String!): Post!
+	user(id: String!): User!
+}
+
+type Mutation {
+	addPost(post: PostInputs!): Post!
+	deletePost(id: String!): DeletedPost!
+	updatePost(id: String!, body: String!): Post!
+	toggleLike(id: String!, liker: String!, likerId: String!): Post!
+}
